@@ -1,0 +1,67 @@
+﻿
+@model PersonelMVCUI.ViewModels.PersonelFormViewModel
+
+@{
+    ViewBag.Title = "PersonelForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Personel Formu</h2>
+@using (Html.BeginForm("Kaydet", "Personel", FormMethod.Post))
+{    
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(p => p.Personeller.Ad)
+        @Html.TextBoxFor(p => p.Personeller.Ad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personeller.Ad)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Personeller.Soyad)
+        @Html.TextBoxFor(p => p.Personeller.Soyad, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personeller.Soyad)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Personeller.DepartmanId)
+        @Html.DropDownListFor(m => m.Personeller.DepartmanId, new SelectList(Model.Departmanlar, "Id", "Ad"),
+        "Departman Seciniz",
+        new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personeller.DepartmanId)
+    </div><div class="form-group">
+        @Html.LabelFor(p => p.Personeller.Maas)
+        @Html.TextBoxFor(p => p.Personeller.Maas, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Personeller.Maas)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Personeller.DogumTarihi)
+        @Html.TextBoxFor(p => p.Personeller.DogumTarihi, "{0:dd-MM-yyyy}", new { @class = "form-control", type = "date",onchange= "ValidDateTime(this)" })
+        @Html.ValidationMessageFor(m => m.Personeller.DogumTarihi)
+    </div>
+    <div class="radio">
+        <label>
+            @Html.RadioButtonFor(m => m.Personeller.Cinsiyet, true) Erkek
+        </label>
+        <label>
+            @Html.RadioButtonFor(m => m.Personeller.Cinsiyet, false) Kadin
+        </label>
+        @Html.ValidationMessageFor(m => m.Personeller.Cinsiyet)
+
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Personeller.EvliMi) Evliyseniz Seciniz
+        </label>
+    </div>
+    @Html.HiddenFor(m => m.Personeller.Id)
+    <button type="submit" class="btn btn-primary" style="float:right">
+        Kaydet
+    </button>
+
+
+}
+
+@section Scripts{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+

@@ -1,0 +1,45 @@
+﻿@using PersonelMVCUI.Models.EntityFramework
+@model List<Personels>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Yeni Personel","Yeni", null, new {@class="btn btn-success"})
+<h2>PersonelListesi</h2>
+
+<table class="table table-bordered deleted-true table-datatable" data-url="/Personel/Sil/">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Maas</th>
+            <th>Departman</th>
+            <th>Dogum Tarihi</th>
+            <th>Cinsiyet</th>
+            <th>Evlilik Durumu</th>
+            <th>Guncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var personel in Model)
+        {
+        <tr>
+            <td>@personel.Id</td>
+            <td>@personel.Ad</td>
+            <td>@personel.Soyad</td>
+            <td>@personel.Maas</td>
+            <td>@personel.Departmans.Ad</td>
+            <td>@personel.DogumTarihi.Value.ToString("dd-MM-yyyy")</td>
+            <td>@(personel.Cinsiyet==true?"Erkek":"Kadin")</td>
+            <td>@(personel.EvliMi==true?"Evli":"Bekar")</td>
+            <td>@Html.ActionLink("Guncelle", "Guncelle", new { id = personel.Id }, new { @class = "btn btn-success" })</td>
+            <td><a class="btn btn-warning btn-delete" data-id="@personel.Id">Sil</a></td>
+        </tr>
+        }
+
+    </tbody>
+</table>
