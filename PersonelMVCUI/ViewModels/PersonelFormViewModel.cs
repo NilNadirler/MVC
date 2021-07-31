@@ -8,6 +8,7 @@ namespace PersonelMVCUI.ViewModels
 {
     public class PersonelFormViewModel
     {
+
         public IEnumerable<Departmans> Departmanlar { get; set; }
         public Personels Personeller { get; set; }
     }
